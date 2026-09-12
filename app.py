@@ -227,7 +227,8 @@ def horario_atlanta(utc_dt):
     local_dt = utc_dt.astimezone(ZoneInfo("America/New_York"))
     return local_dt.strftime('%d/%m/%Y %H:%M')
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
