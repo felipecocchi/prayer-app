@@ -1,0 +1,14 @@
+No index depois do envio da oracao, nao esta sendo reconhecido o loop para os lideres
+Concluido, mudamos a rota para '/', agora precisamos inserir mensagens push ups para as acoes
+
+Caixa de texto do pedido de oracao aparece longo na tela do adm e lideres
+mudamos o width para auto no index.html
+
+Pedidos ja orados?
+
+Ajustar tamanho da caixa dos lideres em pedido de oracao
+feito
+
+Nome da regiao nao esta aprecendo no layout nav bar
+
+Cixa de texto nas regioes / adm ok

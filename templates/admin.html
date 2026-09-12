@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}Pedidos Pendentes - Admin{% endblock %}
+
+{% block main %}
+<h2 class="text-center mb-4">Pedidos Pendentes</h2>
+<div class="d-flex justify-content-between align-items-center mb-3 w-75 mx-auto">
+    <h1></h1>
+    <a href="/admin/history">Pedidos Concluídos</a>
+</div>
+<table class="table table-striped table-hover mx-auto w-75">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Titulo</th>
+            <th>Texto</th>
+            <th>Região</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- TODO: Loop through the database entries to display them in this table -->
+        {% for request in requests %}
+        <tr>
+            <td>{{request.name if request.name else 'Anônimo'}}</td>
+            <td>{{request.title}}</td>
+            <td>
+                {{ request.request[:60] }}{% if request.request|length > 60 %}...
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-{{ request.id }}">ver mais</a>
+                {% endif %}
+            </td>
+            <td>{{request.region.name if request.region else 'N/A'}}</td>
+            <td>{{request.status}}</td>
+            <td>{{ request.timestamp | horario_atlanta }} (ET)</td>
+            <td>
+                <form action="/pray" method="post">
+                    <input name="id" type="hidden" value="{{ request.id }}">
+                    <button type="submit" class="btn btn-success btn-sm">Orei✓</button>
+                </form>
+            </td>
+            <td>
+                <form action="/admin/history/delete" method="post">
+                    <input name="id" type="hidden" value="{{ request.id }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
+                </form>
+            </td>
+        </tr>
+
+        <div class="modal fade" id="modal-{{ request.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ request.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ request.request }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

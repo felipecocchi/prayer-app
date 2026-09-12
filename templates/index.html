@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Pedido de Oracao{% endblock %}
+
+{% block main %}
+<h1 class="text-center my-4">Pedido de Oração</h1>
+<form action="/" method="post" class="mx-auto w-50">
+    <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="request" class="form-label">Pedido</label>
+        <textarea class="form-control" id="request" name="request" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome (opcional)</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+        <p class="form-text">*Seu email não será compartilhado com ninguém.</p>
+    </div>
+    <div class="mb-3">
+        <label for="region_id" class="form-label">Região (Opcional)</label>
+        <select class="form-select w-auto" style="min-width: 150px;" id="region_id" name="region_id">
+            <option value="">Região</option>
+            {% for region in regions %}
+            <option value="{{ region.id }}">{{ region.name }}</option>
+            {% endfor %}
+        </select>
+    </div>  
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+    </div>
+</form>
+{% endblock %}

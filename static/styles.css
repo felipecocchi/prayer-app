@@ -1,0 +1,21 @@
+:root {
+    --dark: #1e1e1e;
+    --medium: #2e2e2e;
+    --white: #ffffff;
+}
+
+body {
+    background-color: var(--white);
+    color: #333;
+}
+
+.navbar {
+    background-color: var(--dark) !important;
+}
+
+footer {
+    background-color: var(--medium) !important;
+    color: var(--white);
+    padding: 20px 0;
+    margin-top: 60px;
+}
