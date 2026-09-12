@@ -1,0 +1,10 @@
+[33mcommit 36c0edc244b9a238605ce842512564394a855de8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Felipe Cocchi <felipe_cocchi@hotmail.com>
+Date:   Sat Sep 12 11:49:20 2026 -0400
+
+    add gunicorn for production
+
+ Procfile         |   1 [32m+[m
+ app.py           |   5 [32m+++[m[31m--[m
+ requirements.txt | Bin [31m804[m -> [32m840[m bytes
+ 3 files changed, 4 insertions(+), 2 deletions(-)

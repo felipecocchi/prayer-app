@@ -229,6 +229,14 @@ def horario_atlanta(utc_dt):
 
 with app.app_context():
     db.create_all()
+    if not Admin.query.first():
+        admin = Admin(
+            username=os.getenv("ADMIN_USERNAME"),
+            password_hash=generate_password_hash(os.getenv("ADMIN_PASSWORD"))
+        )
+        db.session.add(admin)
+        db.session.commit()
+        print("Admin inicial criado.")
 
 if __name__ == "__main__":
     app.run(debug=True)
