@@ -39,6 +39,11 @@ def auth_required(f):
 
 
 def send_notification(to_email, subject, body):
+    api_key = os.getenv("SENDGRID_API_KEY")
+    if not api_key:
+        print(f"[email disabled] To: {to_email} | Subject: {subject}")
+        return
+
     message = Mail(
         from_email=os.getenv("MAIL_USERNAME"),
         to_emails=to_email,
@@ -46,7 +51,7 @@ def send_notification(to_email, subject, body):
         html_content=body,
     )
     try:
-        sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+        sg = SendGridAPIClient(api_key)
         sg.send(message)
     except Exception as e:
         print(f"Erro ao enviar email: {e}")
