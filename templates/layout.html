@@ -19,10 +19,10 @@
                 <a class="nav-link text-white" href="/admin/team">Equipe</a>
                 <a class="nav-link text-white" href="/logout">Logout</a>
                 {% elif session.get('region_id') %}
+                <a class="nav-link text-white" href="/region/dashboard">Pedidos</a>
                 <a class="nav-link text-white" href="/logout">Logout</a>
-                <p class="nav-link text-white mb-0">{{ session.get('region.name') }}</p>  
                 {%elif request.endpoint == 'index' %}
-                <a class="nav-link text-white" href="/login">Login</a>    
+                <a class="nav-link text-white" href="/login">Login</a>
                 {% endif %}
             </div>
         </div>

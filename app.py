@@ -1,3 +1,15 @@
+"""
+AI usage disclosure:
+This project was developed with assistance from Claude (Anthropic) throughout
+the development process. AI assistance was used to: debug errors (e.g. timezone
+handling, deployment configuration on Railway, route/template mismatches),
+explain concepts not yet covered in CS50 (e.g. ORM relationships, WSGI servers,
+environment variables, Jinja custom filters), and review/refine code after I
+wrote or attempted a first version. All architectural decisions (e.g. the
+Leader-to-Region model change, the auth structure, the database schema) were
+made by me; AI helped me implement and troubleshoot them.
+"""
+
 import email
 
 from zoneinfo import ZoneInfo
@@ -12,7 +24,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///database.db')
 
 db = SQLAlchemy(app)
 
@@ -229,14 +241,19 @@ def horario_atlanta(utc_dt):
 
 with app.app_context():
     db.create_all()
+    admin_username = os.getenv("ADMIN_USERNAME")
+    admin_password = os.getenv("ADMIN_PASSWORD")
     if not Admin.query.first():
-        admin = Admin(
-            username=os.getenv("ADMIN_USERNAME"),
-            password_hash=generate_password_hash(os.getenv("ADMIN_PASSWORD"))
-        )
-        db.session.add(admin)
-        db.session.commit()
-        print("Admin inicial criado.")
+        if admin_username and admin_password:
+            admin = Admin(
+                username=admin_username,
+                password_hash=generate_password_hash(admin_password)
+            )
+            db.session.add(admin)
+            db.session.commit()
+            print("Admin inicial criado.")
+        else:
+            print("Nenhum admin criado: defina ADMIN_USERNAME e ADMIN_PASSWORD no .env")
 
 if __name__ == "__main__":
     app.run(debug=True)
